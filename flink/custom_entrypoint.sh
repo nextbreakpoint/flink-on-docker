@@ -53,7 +53,7 @@ fi
 
 if [ -z "$FLINK_METRICS_REPORTERS" ]; then
   echo "Metrics reporters not defined. Will use default value (graphite)"
-  export FLINK_METRICS_REPORTERS="graphite"
+  export FLINK_METRICS_REPORTERS="prometheus"
 fi
 
 # If unspecified, the hostname of the container is taken as the JobManager address

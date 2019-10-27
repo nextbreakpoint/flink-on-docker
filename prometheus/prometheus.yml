@@ -54,3 +54,45 @@ scrape_configs:
       - 'tasks.zookeeper'
       type: 'A'
       port: 7070
+
+  - job_name: 'generate-jobmanager'
+    dns_sd_configs:
+    - names:
+      - 'tasks.generate-jobmanager'
+      type: 'A'
+      port: 9999
+
+  - job_name: 'generate-taskmanager'
+    dns_sd_configs:
+    - names:
+      - 'tasks.generate-taskmanager'
+      type: 'A'
+      port: 9999
+
+  - job_name: 'aggregate-jobmanager'
+    dns_sd_configs:
+    - names:
+      - 'tasks.aggregate-jobmanager'
+      type: 'A'
+      port: 9999
+
+  - job_name: 'aggregate-taskmanager'
+    dns_sd_configs:
+    - names:
+      - 'tasks.aggregate-taskmanager'
+      type: 'A'
+      port: 9999
+
+  - job_name: 'print-jobmanager'
+    dns_sd_configs:
+    - names:
+      - 'tasks.print-jobmanager'
+      type: 'A'
+      port: 9999
+
+  - job_name: 'print-taskmanager'
+    dns_sd_configs:
+    - names:
+      - 'tasks.print-taskmanager'
+      type: 'A'
+      port: 9999
