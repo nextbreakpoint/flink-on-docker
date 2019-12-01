@@ -191,24 +191,22 @@ Check images have been created:
 
     ./swarm-manager.sh docker images
 
-    REPOSITORY                                  TAG                 IMAGE ID            CREATED             SIZE
-    192.168.99.100:5000/workshop-flink-jobs     1.1.0               bc332384f631        About a minute ago   554MB
-    192.168.99.100:5000/workshop-kafka          5.3.1               327bbddc08e2        20 minutes ago       590MB
-    192.168.99.100:5000/workshop-zookeeper      3.5.6               0a00c2f647ac        20 minutes ago       241MB
-    192.168.99.100:5000/workshop-nodeexporter   v0.18.1             146ec2fb7ed9        21 minutes ago       22.9MB
-    192.168.99.100:5000/workshop-prometheus     v2.13.1             160b91a27b5f        21 minutes ago       129MB
-    192.168.99.100:5000/workshop-grafana        6.4.3               a4d9f00a263d        21 minutes ago       206MB
-    192.168.99.100:5000/workshop-alertmanager   v0.19.0             4b73369112e5        22 minutes ago       53.2MB
-    192.168.99.100:5000/workshop-flink          1.9.0               ae32e42089a2        22 minutes ago       741MB
-    zookeeper                                   3.5.6               e41846a619f5        5 days ago           224MB
-    flink                                       1.9.0-scala_2.11    8fde30155334        7 days ago           544MB
-    maven                                       3.6.2-jdk-8         99eb11a22d10        7 days ago           499MB
-    prom/prometheus                             v2.13.1             2c8e464e47f4        9 days ago           129MB
-    grafana/grafana                             6.4.3               a532fe3b344a        10 days ago          206MB
-    confluentinc/cp-kafka                       5.3.1               be6286eb3417        7 weeks ago          590MB
-    prom/alertmanager                           v0.19.0             30594e96cbe8        7 weeks ago          53.2MB
-    prom/node-exporter                          v0.18.1             e5a616e4b9cf        4 months ago         22.9MB
-    registry                                    2                   f32a97de94e1        7 months ago         25.8MB
+    192.168.99.100:5000/workshop-kafka          5.3.1               b443333302b2        4 minutes ago       590MB
+    192.168.99.100:5000/workshop-zookeeper      3.4.14              ab7a8fcb025c        4 minutes ago       274MB
+    192.168.99.100:5000/workshop-flink          1.9.0               09011086641a        4 weeks ago         698MB
+    192.168.99.100:5000/workshop-prometheus     v2.13.1             034e0e5ea2e9        4 weeks ago         129MB
+    192.168.99.100:5000/workshop-flink-jobs     1.1.0               be16949ec408        4 weeks ago         697MB
+    192.168.99.100:5000/workshop-nodeexporter   v0.18.1             325f633378ad        4 weeks ago         22.9MB
+    192.168.99.100:5000/workshop-grafana        6.4.3               0eae6bf62130        4 weeks ago         206MB
+    192.168.99.100:5000/workshop-alertmanager   v0.19.0             aa6ced43e1b3        4 weeks ago         53.2MB
+    zookeeper                                   3.4.14              034bda8ee021        8 days ago          256MB
+    flink                                       1.9.0-scala_2.11    8fde30155334        6 weeks ago         544MB
+    prom/prometheus                             v2.13.1             2c8e464e47f4        6 weeks ago         129MB
+    grafana/grafana                             6.4.3               a532fe3b344a        6 weeks ago         206MB
+    confluentinc/cp-kafka                       5.3.1               be6286eb3417        2 months ago        590MB
+    prom/alertmanager                           v0.19.0             30594e96cbe8        2 months ago        53.2MB
+    prom/node-exporter                          v0.18.1             e5a616e4b9cf        6 months ago        22.9MB
+    registry                                    2                   f32a97de94e1        8 months ago        25.8MB
 
 Deploy the servers:
 
@@ -234,26 +232,26 @@ Check services are running:
 
     ./swarm-manager.sh docker service ls
 
-    ID                  NAME                          MODE                REPLICAS            IMAGE                                                PORTS
-    yk73ly7p3d9j        flink_aggregate-cli           replicated          1/1                 192.168.99.100:5000/workshop-flink-jobs:1.1.0   
-    xqa97ok6gvf5        flink_aggregate-jobmanager    replicated          1/1                 192.168.99.100:5000/workshop-flink:1.9.0             *:28081->8081/tcp
-    wh6c56a55j0t        flink_aggregate-taskmanager   replicated          1/1                 192.168.99.100:5000/workshop-flink:1.9.0             
-    vt61a43qmwpq        flink_generate-cli            replicated          1/1                 192.168.99.100:5000/workshop-flink-jobs:1.1.0   
-    qvu1f3896gs4        flink_generate-jobmanager     replicated          1/1                 192.168.99.100:5000/workshop-flink:1.9.0             *:18081->8081/tcp
-    8kcpid7mwk5m        flink_generate-taskmanager    replicated          1/1                 192.168.99.100:5000/workshop-flink:1.9.0             
-    ottxwvigtvfv        flink_print-cli               replicated          1/1                 192.168.99.100:5000/workshop-flink-jobs:1.1.0   
-    34nk9k658fka        flink_print-jobmanager        replicated          1/1                 192.168.99.100:5000/workshop-flink:1.9.0             *:38081->8081/tcp
-    e4uux5nnbomt        flink_print-taskmanager       replicated          1/1                 192.168.99.100:5000/workshop-flink:1.9.0             
-    owm1pgp26324        servers_alertmanager          replicated          1/1                 192.168.99.100:5000/workshop-alertmanager:v0.19.0    *:9093->9093/tcp
-    oer7uyx11uth        servers_cadvisor              global              3/3                 google/cadvisor:latest
-    5fydyjn550u9        servers_dockerd-exporter      global              3/3                 stefanprodan/caddy:latest
-    xfcs5vgrsl4i        servers_grafana               replicated          1/1                 192.168.99.100:5000/workshop-grafana:6.4.3           *:8081->3000/tcp
-    jput70dfcn9w        servers_graphite              replicated          1/1                 graphiteapp/graphite-statsd:latest                   *:2003->2003/tcp, *:8080->80/tcp
-    jgbeumfauag4        servers_kafka                 replicated          1/1                 192.168.99.100:5000/workshop-kafka:5.3.1             *:9092->9092/tcp
-    unejdnofjedp        servers_node-exporter         global              3/3                 192.168.99.100:5000/workshop-nodeexporter:v0.18.1
-    x0s61ya0jvae        servers_prometheus            replicated          1/1                 192.168.99.100:5000/workshop-prometheus:v2.13.1      *:9090->9090/tcp
-    s9epz2ciupt3        servers_unsee                 replicated          1/1                 cloudflare/unsee:v0.9.2
-    c35jrh8kqf3o        servers_zookeeper             replicated          1/1                 192.168.99.100:5000/workshop-zookeeper:3.5.6         *:2181->2181/tcp
+    ID                  NAME                          MODE                REPLICAS            IMAGE                                               PORTS
+    6sedfqk5vhsx        flink_aggregate-cli           replicated          1/1                 192.168.99.100:5000/workshop-flink-jobs:1.1.0
+    scy377lvtdyd        flink_aggregate-jobmanager    replicated          1/1                 192.168.99.100:5000/workshop-flink:1.9.0            *:28081->8081/tcp
+    1yt6jav3qelj        flink_aggregate-taskmanager   replicated          1/1                 192.168.99.100:5000/workshop-flink:1.9.0
+    awaq16auhy01        flink_generate-cli            replicated          1/1                 192.168.99.100:5000/workshop-flink-jobs:1.1.0
+    hylcvtrk4aoh        flink_generate-jobmanager     replicated          1/1                 192.168.99.100:5000/workshop-flink:1.9.0            *:18081->8081/tcp
+    wx0lrjq4wcug        flink_generate-taskmanager    replicated          1/1                 192.168.99.100:5000/workshop-flink:1.9.0
+    ac9ir1fmit5q        flink_print-cli               replicated          1/1                 192.168.99.100:5000/workshop-flink-jobs:1.1.0
+    w4ohawi3g1iv        flink_print-jobmanager        replicated          1/1                 192.168.99.100:5000/workshop-flink:1.9.0            *:38081->8081/tcp
+    ix2e26l2yhb8        flink_print-taskmanager       replicated          1/1                 192.168.99.100:5000/workshop-flink:1.9.0
+    ufbivimhywgi        servers_alertmanager          replicated          1/1                 192.168.99.100:5000/workshop-alertmanager:v0.19.0   *:9093->9093/tcp
+    mbzzvk02m4mt        servers_cadvisor              global              3/3                 google/cadvisor:latest
+    xey6fsydq3id        servers_dockerd-exporter      global              3/3                 stefanprodan/caddy:latest
+    mjnoxmktcoio        servers_grafana               replicated          1/1                 192.168.99.100:5000/workshop-grafana:6.4.3          *:8081->3000/tcp
+    s23ksm1dv8yg        servers_graphite              replicated          1/1                 graphiteapp/graphite-statsd:latest                  *:2003->2003/tcp, *:8080->80/tcp
+    z7s7xp0sv3wr        servers_kafka                 replicated          1/1                 192.168.99.100:5000/workshop-kafka:5.3.1            *:9092->9092/tcp
+    td2c80ch0r0s        servers_node-exporter         global              3/3                 192.168.99.100:5000/workshop-nodeexporter:v0.18.1
+    l4i2771zu8qz        servers_prometheus            replicated          1/1                 192.168.99.100:5000/workshop-prometheus:v2.13.1     *:9090->9090/tcp
+    7dql1wazt7gx        servers_unsee                 replicated          1/1                 cloudflare/unsee:v0.9.2
+    hbnvpnuxyt16        servers_zookeeper             replicated          1/1                 192.168.99.100:5000/workshop-zookeeper:3.4.14       *:2181->2181/tcp
 
 Tail the logs of Generate job:
 

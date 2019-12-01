@@ -12,6 +12,7 @@ fi
 if [[ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]]; then
     CONFIG="$ZOO_CONF_DIR/zoo.cfg"
 
+    echo "clientPort=2181" >> "$CONFIG"
     echo "dataDir=$ZOO_DATA_DIR" >> "$CONFIG"
     echo "dataLogDir=$ZOO_DATA_LOG_DIR" >> "$CONFIG"
 
@@ -22,21 +23,10 @@ if [[ ! -f "$ZOO_CONF_DIR/zoo.cfg" ]]; then
     echo "autopurge.snapRetainCount=$ZOO_AUTOPURGE_SNAPRETAINCOUNT" >> "$CONFIG"
     echo "autopurge.purgeInterval=$ZOO_AUTOPURGE_PURGEINTERVAL" >> "$CONFIG"
     echo "maxClientCnxns=$ZOO_MAX_CLIENT_CNXNS" >> "$CONFIG"
-    echo "standaloneEnabled=$ZOO_STANDALONE_ENABLED" >> "$CONFIG"
-    echo "admin.enableServer=$ZOO_ADMINSERVER_ENABLED" >> "$CONFIG"
-
-    if [[ -z $ZOO_SERVERS ]]; then
-      ZOO_SERVERS="server.1=localhost:2888:3888;2181"
-    fi
 
     for server in $ZOO_SERVERS; do
         echo "$server" >> "$CONFIG"
     done
-
-    if [[ -n $ZOO_4LW_COMMANDS_WHITELIST ]]; then
-        echo "4lw.commands.whitelist=$ZOO_4LW_COMMANDS_WHITELIST" >> "$CONFIG"
-    fi
-
 fi
 
 # Write myid only if it doesn't exist
